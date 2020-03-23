@@ -101,48 +101,24 @@ download [openssl-master.zip](https://github.com/openssl/openssl.git), then
   * The default thread number for parallel decryption is 4. You can adjust it to match the number of cores 
     of your CPU. One could change its by changing the variable <font color=red>DEC_THREAD_NUM</font> in public parameters. 
 
-## APIs of Twisted ElGamal (single thread)
+## APIs of IPFE
   * <font color=blue>global_initialize(int curve_id)</font>: initialize the OpenSSL environment
   * <font color=blue>global_finalize()</font>: finalize the OpenSSL environment
-  * <font color=blue>Twisted_ElGamal_Setup(pp, MSG_LEN, MAP_TUNNING, DEC_THREAD_NUM)</font>: generate system-wide public parameters of twisted ElGamal
-  * <font color=blue>Twisted_ElGamal_Initialize(pp)</font>: generate hash map for fast decryption
-  * <font color=blue>Twisted_ElGamal_KeyGen(pp, keypair)</font>: generate a keypair
-  * <font color=blue>Twisted_ElGamal_Enc(pp, pk, m, CT)</font>: encrypt message 
-  * <font color=blue>Twisted_ElGamal_Dec(pp, sk, CT, m)</font>: decrypt ciphertext
-  * <font color=blue>Twisted_ElGamal_ReRand(pp, pk, sk, CT, CT_new, r)</font>: re-randomize ciphertext with given randomness
-  * <font color=blue>Twisted_ElGamal_HomoAdd(CT_result, CT1, CT2)</font>: homomorphic addition
-  * <font color=blue>Twisted_ElGamal_HomoSub(CT_result, CT1, CT2)</font>: homomorphic subtraction
-  * <font color=blue>Twisted_ElGamal_ScalarMul(CT_result, CT, k)</font>: scalar multiplication
-
-We also provide parallel implementations, whose Enc, Dec, Scalar performances are better than those in single thread. 
+  * <font color=blue>IPFE_Setup(pp, MSG_LEN, DIMENSION_LEN, DLOG_LEN, MAP_TUNNING, DEC_THREAD_NUM)</font>: generate system-wide public parameters of IPFE
+  * <font color=blue>IPFE_Initialize(pp)</font>: generate hash map for fast decryption
+  * <font color=blue>IPFE_KeyGen(pp, mpk, msk)</font>: generate mpk and msk
+  * <font color=blue>IPFE_KeyDerive(pp, msk, policy, fsk)</font>: generate fsk for given policy from msk 
+  * <font color=blue>IPFE_Enc(pp, mpk, m, CT)</font>: encrypt message 
+  * <font color=blue>IPFE_Dec(pp, fsk, CT, result)</font>: decrypt ciphertext, obtaining a inner product result of message vector
 
 ## Tests 
 
-- <font color=blue>test_twisted_elgamal()</font>: basic correctness test
+- <font color=blue>test_IPFE()</font>: basic correctness test
   * random encryption and decryption test  
-  * boundary encryption and decryption tests
+  
 
 
-- <font color=blue>benchmark_twisted_elgamal()</font>: collect the benchmark in single thread
-  * setup
-  * key generation
-  * encryption
-  * re-randomization
-  * decryption
-  * homomorphic addition
-  * homomorphic subtract
-  * scalar multiplication     
 
-
-- <font color=blue>benchmark_parallel_twisted_elgamal()</font>: collect the benchmark in 2 thread
-  * setup
-  * key generation
-  * encryption
-  * re-randomization
-  * decryption (4 thread)
-  * homomorphic addition
-  * homomorphic subtract
-  * scalar multiplication 
 
 ## License
 
