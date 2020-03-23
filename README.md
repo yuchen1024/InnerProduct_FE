@@ -115,9 +115,6 @@ download [openssl-master.zip](https://github.com/openssl/openssl.git), then
 
 - <font color=blue>test_IPFE()</font>: basic correctness test
   * random encryption and decryption test  
-  
-
-
 
 
 ## License
